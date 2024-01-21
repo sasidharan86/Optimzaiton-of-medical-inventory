@@ -1,50 +1,35 @@
+# app.py
 import streamlit as st
 import pandas as pd
+import pickle
 import numpy as np
-from sklearn.metrics import mean_squared_error
-from math import sqrt
+from statsmodels.tsa.arima.model import ARIMA
+# Import other necessary libraries
 
-# Function to load data (modify as per your data loading method)
-def load_data():
-    # Load your data here
-    return pd.DataFrame()
+st.title("Time Series Analysis App")
 
-# Function for time series forecasting
-def time_series_forecasting(data):
-    # Copy your time series forecasting code here
-    # Return the results or relevant information
-    return rmse_rf, rmse_lr  # Modify as needed
-
-# Streamlit App
-def main():
-    st.title("Time Series Forecasting App")
-
-    # Load Data
-    data = load_data()
-
-    # Display data (optional)
-    st.subheader("Loaded Data:")
+# Load your dataset or provide an option to upload a CSV file
+uploaded_file = st.file_uploader("D:\data science\optimization of Medical Inventory\Medical Inventory Optimaization Dataset\medical inventory.csv", type=["csv"])
+if uploaded_file is not None:
+    data = pd.read_csv(uploaded_file)
     st.dataframe(data.head())
 
-    # Section: Time Series Forecasting
-    st.header("Time Series Forecasting")
+# ... (Your existing time series analysis code)
 
-    # User Interaction: Choose forecasting model parameters, if needed
+# Add Streamlit components to interact with the user
+# For example, you can add sliders, buttons, etc.
 
-    # Button to trigger forecasting
-    if st.button("Run Time Series Forecasting"):
-        # Call time_series_forecasting function
-        rmse_rf, rmse_lr = time_series_forecasting(data)
+# Example: Add a slider for selecting the number of forecast periods
+forecast_periods = st.slider("Select the number of forecast periods", min_value=1, max_value=12, value=6)
 
-        # Display forecasting results
-        st.subheader("Forecasting Results:")
-        st.write("Mean Squared Error for Random Forest Model:", rmse_rf)
-        st.write("Mean Squared Error for Linear Regression Model:", rmse_lr)
+# Example: Button to trigger forecast generation
+if st.button("Generate Forecast"):
+    # Example: ARIMA forecasting based on user input
+    # ...
 
-    # Section: Additional Analysis or Visualization (optional)
-    st.header("Additional Analysis or Visualization")
+    # Display the forecast result
+    st.write("Forecast Result:")
+    st.dataframe(forecast_result)
 
-    # Add more sections as needed
+# ... (Add more Streamlit components as needed)
 
-if __name__ == "__main__":
-    main()
